@@ -18,7 +18,7 @@ BEEF File Header
 
  Size |      Description     | Value
  ----------------------------------
-  4b  | Magic number         | 0xBEEF
+  2b  | Magic number         | 0xBEEF
   1b  | Architecture         | 0xB (BISC)
   1b  | Endianness           | 1 (little), 2 (big)
   4b  | Entry point          | Address
