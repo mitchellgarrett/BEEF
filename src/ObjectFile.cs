@@ -43,7 +43,7 @@ namespace FTG.Studios.BEEF {
 			return obj;
 		}
 		
-		public static void Main(string[] args) {
+		/*public static void Main(string[] args) {
 			ObjectFile obj = new ObjectFile();
 			obj.FileHeader = new FileHeader() {
 				MagicNumber = FileHeader.MAGIC_NUMBER,
@@ -75,7 +75,7 @@ namespace FTG.Studios.BEEF {
 			obj = ObjectFile.Deserialize("test.beef");
 			
 			System.Console.WriteLine(obj);
-		}
+		}*/
 		
 		public override string ToString() {
 			string output = FileHeader.ToString();
@@ -84,7 +84,7 @@ namespace FTG.Studios.BEEF {
 				output += "\nData:\n\t";
 				for (int b = 0; b < SectionData[i].Length; b++) {
 					output += $"{SectionData[i][b]:x2} ";
-					if (b != 0 && b % 4 == 0) output += "\n\t";
+					if ((b + 1) % 4 == 0) output += "\n\t";
 				}
 			}
 			return output;
