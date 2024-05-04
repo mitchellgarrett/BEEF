@@ -42,5 +42,32 @@ namespace FTG.Studios.BEEF
 		/// Symbol identifier.
 		/// </summary>
 		public string Name;
+
+		public static void Serialize(SymbolTableEntry entry, System.IO.BinaryWriter writer)
+		{
+			writer.Write(entry.Value);
+			writer.Write(entry.Size);
+			writer.Write(entry.Scope);
+			writer.Write(entry.Visibility);
+			writer.Write(entry.Type);
+			writer.Write(entry.NameLength);
+			writer.Write(Encoding.ASCII.GetBytes(entry.Name));
+		}
+
+		public static SymbolTableEntry Deserialize(System.IO.BinaryReader reader)
+		{
+			SymbolTableEntry entry = new SymbolTableEntry();
+
+			entry.Value = reader.readUInt32();
+			entry.Size = reader.ReadByte();
+			entry.Scope = reader.ReadByte();
+			entry.Visibility = reader.ReadByte();
+			entry.Type = (SymbolType)reader.ReadByte();
+			entry.NameLength = reader.ReadUInt16();
+			char[] name_bytes = reader.ReadChars(entry.NameLength);
+			header.Name = new string(name_bytes);
+
+			return entry;
+		}
 	}
 }

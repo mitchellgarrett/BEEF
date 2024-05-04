@@ -25,13 +25,7 @@ namespace FTG.Studios.BEEF
 			writer.Write(header.Offset);
 			writer.Write(header.Address);
 			writer.Write(header.Size);
-			char[] name_bytes = new char[16];
-			for (int i = 0; i < name_bytes.Length; i++)
-			{
-				if (i >= header.Name.Length) break;
-				name_bytes[i] = header.Name[i];
-			}
-			writer.Write(name_bytes);
+			writer.Write(Encoding.ASCII.GetBytes(header.Name));
 		}
 
 		public static SectionHeader Deserialize(System.IO.BinaryReader reader)
