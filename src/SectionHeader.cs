@@ -5,7 +5,7 @@ namespace FTG.Studios.BEEF
 {
 
 	public enum SectionType : UInt16 { Null, Program, SymbolTable, StringTable, RelocationTable, Debug };
-	public enum SectionFlag : UInt16 { None = 0, Readable = 1, Writable = 2, Executable = 4, Code = 8, InitData = 16, UninitData = 32 };
+	public enum SectionFlag : UInt16 { None = 0, Readable = 1, Writable = 2, Executable = 4, Code = 8, InititializedData = 16, UninitializedData = 32 };
 
 
 	/// <summary>
