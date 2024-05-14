@@ -2,10 +2,17 @@ using System;
 
 namespace FTG.Studios.BEEF
 {
-	// Must have access to symbol table and reference to section being relocated
+
+	/// <summary>
+	/// Size: 16 bytes.
+	/// </summary>
 	public struct RelocationTableEntry
 	{
-		// TODO: Maybe include section index?
+
+		/// <summary>
+		/// Index in the section header table of the section the symbol is reference in.
+		/// </summary>
+		public UInt16 SectionIndex;
 
 		/// <summary>
 		/// Location of symbol reference to be relocated relative to its section.
@@ -23,12 +30,13 @@ namespace FTG.Studios.BEEF
 		public UInt32 Addend;
 
 		/// <summary>
-		/// Platform-specific relocation type to be handled by linker.
+		/// Platform-specific relocation data to be handled by linker.
 		/// </summary>
-		public UInt32 RelocationType;
+		public UInt16 RelocationType;
 
 		public static void Serialize(RelocationTableEntry entry, System.IO.BinaryWriter writer)
 		{
+			writer.Write(entry.SectionIndex)
 			writer.Write(entry.Offset);
 			writer.Write(entry.SymbolIndex);
 			writer.Write(entry.Addend);
@@ -39,10 +47,11 @@ namespace FTG.Studios.BEEF
 		{
 			RelocationTableEntry entry = new RelocationTableEntry();
 
-			entry.Value = reader.readUInt32();
-			entry.SymbolIndex = reader.readUInt32();
-			entry.Addend = reader.readUInt32();
-			entry.RelocationType = reader.readUInt32();
+			entry.SectionIndex = reader.ReadUInt16();
+			entry.Offset = reader.ReadUInt32();
+			entry.SymbolIndex = reader.ReadUInt32();
+			entry.Addend = reader.ReadUInt32();
+			entry.RelocationType = reader.ReadUInt16();
 
 			return entry;
 		}
