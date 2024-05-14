@@ -5,6 +5,10 @@ namespace FTG.Studios.BEEF
 
 	public enum SymbolType : byte { Null, File, Section, Object, Function, Variable };
 
+
+	/// <summary>
+	/// Size: 10 bytes + length of string.
+	/// </summary>
 	public struct SymbolTableEntry
 	{
 
