@@ -48,6 +48,8 @@ namespace FTG.Studios.BEEF
 		/// </summary>
 		public string Name;
 
+		public int SizeInBytes { get { return 10 + NameLength; } }
+
 		public static void Serialize(SymbolTableEntry entry, System.IO.BinaryWriter writer)
 		{
 			writer.Write(entry.Value);

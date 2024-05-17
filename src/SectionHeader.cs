@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Runtime.InteropServices;
 
 namespace FTG.Studios.BEEF
@@ -14,6 +15,8 @@ namespace FTG.Studios.BEEF
 	[StructLayout(LayoutKind.Sequential)]
 	public struct SectionHeader
 	{
+		public const int SizeInBytes = 32;
+
 		public SectionType Type;
 		public SectionFlag Flags;
 		public UInt32 Offset;

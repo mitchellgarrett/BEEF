@@ -11,6 +11,7 @@ namespace FTG.Studios.BEEF
 	public struct FileHeader
 	{
 		public const UInt16 MAGIC_NUMBER = 0xBEEF;
+		public const int SizeInBytes = 16;
 
 		public UInt16 MagicNumber;
 		public byte Architecture;

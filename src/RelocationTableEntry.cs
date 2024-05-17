@@ -9,6 +9,8 @@ namespace FTG.Studios.BEEF
 	public struct RelocationTableEntry
 	{
 
+		public const int SizeInBytes = 16;
+
 		/// <summary>
 		/// Index in the section header table of the section the symbol is reference in.
 		/// </summary>
@@ -36,7 +38,7 @@ namespace FTG.Studios.BEEF
 
 		public static void Serialize(RelocationTableEntry entry, System.IO.BinaryWriter writer)
 		{
-			writer.Write(entry.SectionIndex)
+			writer.Write(entry.SectionIndex);
 			writer.Write(entry.Offset);
 			writer.Write(entry.SymbolIndex);
 			writer.Write(entry.Addend);
