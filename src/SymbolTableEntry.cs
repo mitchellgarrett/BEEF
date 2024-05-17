@@ -70,7 +70,7 @@ namespace FTG.Studios.BEEF
 			entry.Type = (SymbolType)reader.ReadByte();
 			entry.NameLength = reader.ReadUInt16();
 			char[] name_bytes = reader.ReadChars(entry.NameLength);
-			header.Name = new string(name_bytes);
+			entry.Name = new string(name_bytes);
 
 			return entry;
 		}
