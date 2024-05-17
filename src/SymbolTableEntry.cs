@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace FTG.Studios.BEEF
@@ -10,6 +11,7 @@ namespace FTG.Studios.BEEF
 	/// <summary>
 	/// Size: 10 bytes + length of string.
 	/// </summary>
+	[StructLayout(LayoutKind.Sequential)]
 	public struct SymbolTableEntry
 	{
 

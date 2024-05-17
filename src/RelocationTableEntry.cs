@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 
 namespace FTG.Studios.BEEF
 {
@@ -6,6 +7,7 @@ namespace FTG.Studios.BEEF
 	/// <summary>
 	/// Size: 16 bytes.
 	/// </summary>
+	[StructLayout(LayoutKind.Sequential)]
 	public struct RelocationTableEntry
 	{
 
@@ -35,6 +37,29 @@ namespace FTG.Studios.BEEF
 		/// Platform-specific relocation data to be handled by linker.
 		/// </summary>
 		public UInt16 RelocationType;
+
+		// TODO: This may need to be made endian-agnostic
+		public static RelocationTableEntry Assemble(byte[] bytes)
+		{
+			IntPtr pointer = Marshal.AllocHGlobal(SizeInBytes);
+			Marshal.Copy(bytes, 0, pointer, SizeInBytes);
+			RelocationTableEntry entry = (RelocationTableEntry)Marshal.PtrToStructure(pointer, typeof(RelocationTableEntry));
+			Marshal.FreeHGlobal(pointer);
+
+			return entry;
+		}
+
+		public static byte[] Disassemble(RelocationTableEntry entry)
+		{
+			byte[] bytes = new byte[SizeInBytes];
+
+			IntPtr pointer = Marshal.AllocHGlobal(SizeInBytes);
+			Marshal.StructureToPtr(entry, pointer, true);
+			Marshal.Copy(pointer, bytes, 0, SizeInBytes);
+			Marshal.FreeHGlobal(pointer);
+
+			return bytes;
+		}
 
 		public static void Serialize(RelocationTableEntry entry, System.IO.BinaryWriter writer)
 		{
