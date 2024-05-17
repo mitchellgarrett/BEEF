@@ -46,8 +46,6 @@ namespace FTG.Studios.BEEF
 				obj.SectionData[i] = reader.ReadBytes((int)obj.SectionHeaders[i].Size);
 			}
 
-			ObjectFile.Serialize(obj, "deserialize.beef");
-
 			return obj;
 		}
 
