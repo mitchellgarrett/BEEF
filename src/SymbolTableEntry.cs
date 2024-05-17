@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace FTG.Studios.BEEF
 {
@@ -53,7 +54,7 @@ namespace FTG.Studios.BEEF
 			writer.Write(entry.Size);
 			writer.Write(entry.Scope);
 			writer.Write(entry.Visibility);
-			writer.Write(entry.Type);
+			writer.Write((byte)entry.Type);
 			writer.Write(entry.NameLength);
 			writer.Write(Encoding.ASCII.GetBytes(entry.Name));
 		}
@@ -62,7 +63,7 @@ namespace FTG.Studios.BEEF
 		{
 			SymbolTableEntry entry = new SymbolTableEntry();
 
-			entry.Value = reader.readUInt32();
+			entry.Value = reader.ReadUInt32();
 			entry.Size = reader.ReadByte();
 			entry.Scope = reader.ReadByte();
 			entry.Visibility = reader.ReadByte();
