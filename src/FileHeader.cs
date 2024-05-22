@@ -10,7 +10,8 @@ namespace FTG.Studios.BEEF
 	/// </summary>
 	public struct FileHeader
 	{
-		public const UInt16 MAGIC_NUMBER = 0xBEEF;
+		// Magic number is flipped so that it will be written as beef in little endian order
+		public const UInt16 MAGIC_NUMBER = 0xEFBE;
 		public const int SizeInBytes = 16;
 
 		public UInt16 HeaderBegin;

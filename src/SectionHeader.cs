@@ -16,13 +16,14 @@ namespace FTG.Studios.BEEF
 	public struct SectionHeader
 	{
 		public const int SizeInBytes = 32;
+		public const int IdentifierSize = 16;
 
 		public SectionType Type;
 		public SectionFlag Flags;
 		public UInt32 Offset;
 		public UInt32 Address;
 		public UInt32 Size;
-		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 16)]
+		[MarshalAs(UnmanagedType.ByValTStr, SizeConst = IdentifierSize)]
 		public string Name;
 
 		public static void Serialize(SectionHeader header, System.IO.BinaryWriter writer)
@@ -32,10 +33,12 @@ namespace FTG.Studios.BEEF
 			writer.Write(header.Offset);
 			writer.Write(header.Address);
 			writer.Write(header.Size);
-			writer.Write(header.Name);
-			for	(int i = header.Name.Length; i < 16; i++) {
-				writer.Write((byte)0);
-			}
+			
+  			for (int i = 0; i < IdentifierSize; i++)
+  			{
+  				if (i < header.Name.Length) writer.Write(header.Name[i]);
+  				else writer.Write((byte)0);
+  			}
 		}
 
 		public static SectionHeader Deserialize(System.IO.BinaryReader reader)
@@ -47,7 +50,7 @@ namespace FTG.Studios.BEEF
 			header.Offset = reader.ReadUInt32();
 			header.Address = reader.ReadUInt32();
 			header.Size = reader.ReadUInt32();
-			header.Name = new string(reader.ReadChars(16));
+			header.Name = new string(reader.ReadChars(IdentifierSize));
 
 			return header;
 		}
