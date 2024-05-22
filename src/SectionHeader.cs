@@ -32,7 +32,14 @@ namespace FTG.Studios.BEEF
 			writer.Write(header.Offset);
 			writer.Write(header.Address);
 			writer.Write(header.Size);
-			writer.Write(Encoding.ASCII.GetBytes(header.Name));
+			
+			char[] name_bytes = new char[16];
+ 			for (int i = 0; i < name_bytes.Length; i++)
+ 			{
+ 				if (i >= header.Name.Length) break;
+ 				name_bytes[i] = header.Name[i];
+ 			}
+ 			writer.Write(name_bytes);
 		}
 
 		public static SectionHeader Deserialize(System.IO.BinaryReader reader)
@@ -44,6 +51,7 @@ namespace FTG.Studios.BEEF
 			header.Offset = reader.ReadUInt32();
 			header.Address = reader.ReadUInt32();
 			header.Size = reader.ReadUInt32();
+			
 			char[] name_bytes = reader.ReadChars(16);
 			header.Name = new string(name_bytes);
 
